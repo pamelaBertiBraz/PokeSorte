@@ -1,12 +1,29 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 const CARTAS_VAZIAS = []
 
+function filtrarCartas(cartas, busca, tipo) {
+  const nomeBuscado = busca.trim().toLocaleLowerCase('pt-BR')
+
+  return cartas.filter((carta) =>
+    carta.nome.toLocaleLowerCase('pt-BR').includes(nomeBuscado)
+    && (tipo === '' || carta.tipos.includes(tipo)),
+  )
+}
+
 export default function Album({ cartas = CARTAS_VAZIAS }) {
   const [busca, setBusca] = useState('')
-  const nomeBuscado = busca.trim().toLocaleLowerCase('pt-BR')
-  const cartasEncontradas = cartas.filter((carta) =>
-    carta.nome.toLocaleLowerCase('pt-BR').includes(nomeBuscado),
+  const [tipo, setTipo] = useState('')
+
+  const tiposDisponiveis = useMemo(
+    () => [...new Set(cartas.flatMap((carta) => carta.tipos))]
+      .sort((primeiro, segundo) => primeiro.localeCompare(segundo, 'pt-BR')),
+    [cartas],
+  )
+
+  const cartasEncontradas = useMemo(
+    () => filtrarCartas(cartas, busca, tipo),
+    [cartas, busca, tipo],
   )
 
   return (
@@ -25,6 +42,20 @@ export default function Album({ cartas = CARTAS_VAZIAS }) {
           onChange={(event) => setBusca(event.target.value)}
           placeholder="Digite o nome do Pokémon"
         />
+
+        <label htmlFor="album-type">Filtrar por tipo</label>
+        <select
+          id="album-type"
+          value={tipo}
+          onChange={(event) => setTipo(event.target.value)}
+        >
+          <option value="">Todos os tipos</option>
+          {tiposDisponiveis.map((tipoDisponivel) => (
+            <option key={tipoDisponivel} value={tipoDisponivel}>
+              {tipoDisponivel}
+            </option>
+          ))}
+        </select>
       </div>
 
       <section className="album-page__colecao" aria-label="Cartas do álbum">
