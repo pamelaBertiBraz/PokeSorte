@@ -6,20 +6,29 @@ import { getPokemonDetails } from '../services/pokeApi.js'
 import './DrawPage.css'
 
 export default function DrawPage() {
-  const [pokemon, setPokemon] = useState(null)
+  const [pokemons, setPokemons] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  async function drawPokemon() {
+  async function drawPokemons() {
     setLoading(true)
     setError('')
 
     try {
-      const randomId = Math.floor(Math.random() * 151) + 1
-      const result = await getPokemonDetails(randomId)
+      const ids = new Set()
 
-      setPokemon(result)
+      while (ids.size < 3) {
+        const randomId = Math.floor(Math.random() * 151) + 1
+        ids.add(randomId)
+      }
+
+      const results = await Promise.all(
+        [...ids].map((id) => getPokemonDetails(id)),
+      )
+
+      setPokemons(results)
     } catch (err) {
+      setPokemons([])
       setError(err.message)
     } finally {
       setLoading(false)
@@ -27,7 +36,7 @@ export default function DrawPage() {
   }
 
   function resetDraw() {
-    setPokemon(null)
+    setPokemons([])
     setError('')
   }
 
@@ -53,16 +62,26 @@ export default function DrawPage() {
           <div className="spinner" />
           <p>Abrindo o pacote...</p>
         </section>
-      ) : pokemon ? (
+      ) : pokemons.length > 0 ? (
         <section className="result-area">
-          <PokemonCard pokemon={pokemon} />
+          <div
+            className="drawn-cards"
+            aria-label="Cartas sorteadas"
+          >
+            {pokemons.map((pokemon) => (
+              <PokemonCard
+                key={pokemon.numero}
+                pokemon={pokemon}
+              />
+            ))}
+          </div>
 
           <button
             className="back-button"
             type="button"
             onClick={resetDraw}
           >
-            Abrir outra carta
+            Abrir outro pacote
           </button>
         </section>
       ) : (
@@ -74,7 +93,7 @@ export default function DrawPage() {
             <BoosterPack
               key={number}
               index={number}
-              onClick={drawPokemon}
+              onClick={drawPokemons}
             />
           ))}
         </section>
