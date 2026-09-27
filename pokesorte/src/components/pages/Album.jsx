@@ -33,7 +33,7 @@ export default function Album({ cartas = CARTAS_VAZIAS }) {
         <p>As cartas que você conseguir no sorteio aparecerão aqui.</p>
       </header>
 
-      <div className="album-page__filtros">
+      <div className="album-page__filters">
         <label htmlFor="album-search">Buscar por nome</label>
         <input
           id="album-search"
@@ -58,15 +58,15 @@ export default function Album({ cartas = CARTAS_VAZIAS }) {
         </select>
       </div>
 
-      <section className="album-page__colecao" aria-label="Cartas do álbum">
+      <section className="album-page__collection" aria-label="Cartas do álbum">
         {cartas.length === 0 ? (
-          <p className="album-page__vazio">
+          <p className="album-page__empty">
             Seu álbum está vazio. Sorteie uma carta para começar sua coleção.
           </p>
         ) : cartasEncontradas.length === 0 ? (
           <p>Nenhuma carta encontrada para essa busca.</p>
         ) : (
-          <ul className="album-page__lista">
+          <ul className="album-page__list">
             {cartasEncontradas.map((carta) => (
               <li key={carta.id}>{carta.nome}</li>
             ))}
