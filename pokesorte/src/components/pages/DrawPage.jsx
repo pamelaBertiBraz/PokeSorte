@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import logoPokeSorte from '../assets/logo-pokesorte.png'
-import BoosterPack from '../components/BoosterPack.jsx'
-import PokemonCard from '../components/PokemonCard.jsx'
-import { getPokemonDetails } from '../services/pokeApi.js'
+import logoPokeSorte from '../../assets/logo-pokesorte.png'
+import BoosterPack from '../BoosterPack.jsx'
+import PokemonCard from '../PokemonCard.jsx'
+import { getPokemonDetails } from '../../services/pokeApi.js'
 import './DrawPage.css'
 
 export default function DrawPage() {
