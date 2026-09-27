@@ -1,3 +1,4 @@
+import './Album.css'
 import { useMemo, useState } from 'react'
 
 const CARTAS_VAZIAS = []
