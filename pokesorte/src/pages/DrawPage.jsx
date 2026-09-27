@@ -1,5 +1,6 @@
 import logoPokeSorte from '../assets/logo-pokesorte.png'
 import BoosterPack from '../components/BoosterPack.jsx'
+import './DrawPage.css'
 
 export default function DrawPage() {
   return (
