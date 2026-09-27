@@ -1,0 +1,73 @@
+.draw-page {
+  width: min(1180px, 92%);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 32px 0 48px;
+  text-align: center;
+}
+
+.draw-logo {
+  width: min(390px, 78vw);
+  height: 150px;
+  margin-bottom: 22px;
+  object-fit: contain;
+}
+
+.packs {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(25px, 5vw, 70px);
+}
+
+.booster-pack {
+  width: min(250px, 25vw);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 18px 14px #17345155);
+  transition:
+    transform 0.22s ease,
+    filter 0.22s ease;
+}
+
+.booster-pack img {
+  display: block;
+  width: 100%;
+  height: 405px;
+  object-fit: contain;
+}
+
+.booster-pack:hover,
+.booster-pack:focus-visible {
+  outline: none;
+  transform: translateY(-13px) rotate(-1deg);
+  filter:
+    drop-shadow(0 25px 18px #17345166)
+    brightness(1.05);
+}
+
+.booster-pack:active {
+  transform: translateY(-5px) scale(0.98);
+}
+
+@media (max-width: 720px) {
+  .draw-logo {
+    height: 115px;
+  }
+
+  .packs {
+    min-height: 420px;
+    flex-direction: column;
+  }
+
+  .booster-pack {
+    width: min(250px, 70vw);
+  }
+
+  .booster-pack img {
+    height: 390px;
+  }
+}
