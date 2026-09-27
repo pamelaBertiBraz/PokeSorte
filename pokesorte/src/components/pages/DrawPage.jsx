@@ -17,7 +17,7 @@ export default function DrawPage() {
     try {
       const ids = new Set()
 
-      while (ids.size < 4) {
+      while (ids.size < 1) {
         const randomId = Math.floor(Math.random() * 151) + 1
         ids.add(randomId)
       }
