@@ -26,6 +26,11 @@ export default function DrawPage() {
     }
   }
 
+  function resetDraw() {
+    setPokemon(null)
+    setError('')
+  }
+
   return (
     <main className="draw-page">
       <img
@@ -41,13 +46,24 @@ export default function DrawPage() {
       )}
 
       {loading ? (
-        <section className="opening" aria-live="polite">
+        <section
+          className="opening"
+          aria-live="polite"
+        >
           <div className="spinner" />
           <p>Abrindo o pacote...</p>
         </section>
       ) : pokemon ? (
         <section className="result-area">
           <PokemonCard pokemon={pokemon} />
+
+          <button
+            className="back-button"
+            type="button"
+            onClick={resetDraw}
+          >
+            Abrir outra carta
+          </button>
         </section>
       ) : (
         <section
