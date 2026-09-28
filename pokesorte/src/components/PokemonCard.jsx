@@ -1,3 +1,4 @@
+import './PokemonCard.css'
 import StatBar from './StatBar.jsx'
 
 const typeColors = {
