@@ -1,7 +1,7 @@
 .footer {
     width: 100%;
 
-    padding: 20px 40px;
+    padding: 10px 40px;
 
     box-sizing: border-box;
 
@@ -26,7 +26,7 @@
 .footer__authors {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
 }
 
 .footer p {
@@ -34,15 +34,15 @@
 }
 
 .footer__info {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .footer__info strong {
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .footer__authors {
-    font-size: 14px;
+    font-size: 15px;
     text-align: right;
 }
 
@@ -53,13 +53,13 @@
 
 @media (max-width: 720px) {
     .footer {
-        padding: 20px;
+        padding: 12px 20px;
     }
 
     .footer__content {
         flex-direction: column;
         text-align: center;
-        gap: 12px;
+        gap: 8px;
     }
 
     .footer__authors {

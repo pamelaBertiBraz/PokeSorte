@@ -1,11 +1,11 @@
 .header {
     width: 100%;
-    min-height: 72px;
+    min-height: 60px;
 
     display: flex;
     align-items: center;
 
-    padding: 0 40px;
+    padding: 0 32px;
 
     box-sizing: border-box;
 
@@ -30,7 +30,7 @@
 .header__logo img {
     display: block;
 
-    width: 220px;
+    width: 150px;
     height: auto;
 }
 
@@ -38,7 +38,7 @@
     display: flex;
     align-items: stretch;
 
-    height: 72px;
+    height: 60px;
 
     margin-left: auto;
 }
@@ -46,9 +46,9 @@
 .header__link {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
 
-    padding: 0 20px;
+    padding: 0 16px;
 
     border: 0;
     background: transparent;
@@ -56,7 +56,7 @@
     color: #ffffff;
 
     font-family: inherit;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
 
     cursor: pointer;
@@ -76,8 +76,8 @@
     align-items: center;
     justify-content: center;
 
-    width: 23px;
-    height: 23px;
+    width: 21px;
+    height: 21px;
 }
 
 .header__icon svg {

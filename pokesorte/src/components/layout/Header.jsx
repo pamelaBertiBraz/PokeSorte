@@ -1,5 +1,5 @@
 import './Header.css';
-import logoPokeSorte from '../assets/logo-pokesorte.png';
+import logoPokeSorte from '../../assets/logo-pokesorte.png';
 
 function Icon({ nome }) {
     if (nome === 'home') {
