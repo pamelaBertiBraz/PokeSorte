@@ -1,5 +1,6 @@
 import './Album.css'
 import { useMemo, useState } from 'react'
+import PokemonCard from '../PokemonCard.jsx'
 
 const CARTAS_VAZIAS = []
 
@@ -69,7 +70,9 @@ export default function Album({ cartas = CARTAS_VAZIAS }) {
         ) : (
           <ul className="album-page__list">
             {cartasEncontradas.map((carta) => (
-              <li key={carta.id}>{carta.nome}</li>
+              <li key={carta.id}>
+                <PokemonCard pokemon={carta} />
+              </li>
             ))}
           </ul>
         )}
