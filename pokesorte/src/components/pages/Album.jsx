@@ -1,6 +1,7 @@
 import './Album.css'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import PokemonCard from '../PokemonCard.jsx'
+import { getPokemon } from '../../services/pokeApi.js'
 
 const CARTAS_VAZIAS = []
 
@@ -9,13 +10,47 @@ function filtrarCartas(cartas, busca, tipo) {
 
   return cartas.filter((carta) =>
     carta.nome.toLocaleLowerCase('pt-BR').includes(nomeBuscado)
-    && (tipo === '' || carta.tipos.includes(tipo)),
+    && (tipo === '' || carta.obtida?.tipos.includes(tipo)),
   )
 }
 
 export default function Album({ cartas = CARTAS_VAZIAS }) {
   const [busca, setBusca] = useState('')
   const [tipo, setTipo] = useState('')
+  const [catalogo, setCatalogo] = useState([])
+  const [carregando, setCarregando] = useState(true)
+  const [erro, setErro] = useState('')
+
+  useEffect(() => {
+    let ativo = true
+
+    getPokemon()
+      .then(({ results }) => {
+        if (ativo) {
+          setCatalogo(results.map((pokemon) => ({
+            id: Number(pokemon.url.split('/').filter(Boolean).pop()),
+            nome: pokemon.name,
+          })).sort((primeiro, segundo) => primeiro.id - segundo.id))
+        }
+      })
+      .catch((error) => {
+        if (ativo) setErro(error.message)
+      })
+      .finally(() => {
+        if (ativo) setCarregando(false)
+      })
+
+    return () => { ativo = false }
+  }, [])
+
+  const cartasDoAlbum = useMemo(() => {
+    const obtidasPorId = new Map(cartas.map((carta) => [carta.id, carta]))
+
+    return catalogo.map((pokemon) => ({
+      ...pokemon,
+      obtida: obtidasPorId.get(pokemon.id),
+    }))
+  }, [catalogo, cartas])
 
   const tiposDisponiveis = useMemo(
     () => [...new Set(cartas.flatMap((carta) => carta.tipos))]
@@ -24,8 +59,8 @@ export default function Album({ cartas = CARTAS_VAZIAS }) {
   )
 
   const cartasEncontradas = useMemo(
-    () => filtrarCartas(cartas, busca, tipo),
-    [cartas, busca, tipo],
+    () => filtrarCartas(cartasDoAlbum, busca, tipo),
+    [cartasDoAlbum, busca, tipo],
   )
 
   return (
@@ -61,17 +96,17 @@ export default function Album({ cartas = CARTAS_VAZIAS }) {
       </div>
 
       <section className="album-page__collection" aria-label="Cartas do álbum">
-        {cartas.length === 0 ? (
-          <p className="album-page__empty">
-            Seu álbum está vazio. Sorteie uma carta para começar sua coleção.
-          </p>
+        {carregando ? (
+          <p>Carregando álbum...</p>
+        ) : erro ? (
+          <p role="alert">Não foi possível carregar o álbum: {erro}</p>
         ) : cartasEncontradas.length === 0 ? (
-          <p>Nenhuma carta encontrada para essa busca.</p>
+          <p>Nenhuma carta encontrada com esses filtros.</p>
         ) : (
           <ul className="album-page__list">
             {cartasEncontradas.map((carta) => (
               <li key={carta.id}>
-                <PokemonCard pokemon={carta} />
+                <PokemonCard pokemon={carta.obtida || carta} bloqueado={!carta.obtida} />
               </li>
             ))}
           </ul>

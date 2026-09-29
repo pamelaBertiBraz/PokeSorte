@@ -42,7 +42,36 @@ const typeTranslation = {
   ghost: 'Fantasma',
   steel: 'Aço',
 }
-export default function PokemonCard({ pokemon }) {
+export default function PokemonCard({ pokemon, bloqueado = false }) {
+  if (bloqueado) {
+    return (
+      <article
+        className="pokemon-card pokemon-card--locked"
+        aria-label={`Pokémon número ${pokemon.id} ainda não obtido`}
+      >
+        <span className="pokemon-id">#{pokemon.id}</span>
+        <div className="pokemon-art">
+          <span className="pokemon-card__unknown" aria-hidden="true">?</span>
+        </div>
+        <h2>Não descoberto</h2>
+        <div className="types"><span>Bloqueado</span></div>
+        <div className="facts">
+          <div><span>Altura</span><strong>—</strong></div>
+          <div><span>Peso</span><strong>—</strong></div>
+          <div><span>Habilidade</span><strong>—</strong></div>
+        </div>
+        <div className="stats" aria-hidden="true">
+          {['HP', 'Ataque', 'Defesa', 'Velocidade'].map((atributo) => (
+            <div className="stat-bar" key={atributo}>
+              <div className="stat-heading"><span>{atributo}</span><strong>—</strong></div>
+              <div className="stat-track" />
+            </div>
+          ))}
+        </div>
+      </article>
+    )
+  }
+
   const tipos = pokemon.tipos.map(
     (type) => typeTranslation[type] || type,
   )

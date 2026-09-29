@@ -127,6 +127,45 @@
   transition: width 0.4s ease;
 }
 
+.pokemon-card--locked {
+  --type-color: #aab9c8;
+  background: linear-gradient(145deg, #edf1f5, #dce4ec);
+  box-shadow: 0 12px 26px #17345120;
+  color: #758596;
+  animation: none;
+}
+
+.pokemon-card--locked .pokemon-art {
+  background: linear-gradient(145deg, #d4dde6, #e9eef3);
+}
+
+.pokemon-card__unknown {
+  display: grid;
+  width: 150px;
+  height: 150px;
+  place-items: center;
+  border-radius: 50%;
+  background: #b8c5d1;
+  color: #e9eef3;
+  font-size: 6rem;
+  font-weight: 700;
+}
+
+.pokemon-card--locked h2,
+.pokemon-card--locked .pokemon-id,
+.pokemon-card--locked .facts span {
+  color: #758596;
+}
+
+.pokemon-card--locked .types span {
+  background: #98a8b7;
+}
+
+.pokemon-card--locked .facts div,
+.pokemon-card--locked .stat-track {
+  background: #d2dce5;
+}
+
 @keyframes reveal-card {
   from {
     opacity: 0;
