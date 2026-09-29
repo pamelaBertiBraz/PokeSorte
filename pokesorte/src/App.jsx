@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
@@ -6,9 +6,24 @@ import Footer from './components/layout/Footer';
 import Home from './components/pages/Home';
 import DrawPage from './components/pages/DrawPage';
 import Album from './components/pages/Album';
+import { collectionReducer, initialState } from './reducers/collectionReducer';
 
 function App() {
     const [telaAtual, setTelaAtual] = useState('home');
+    const [colecao, dispatch] = useReducer(collectionReducer, initialState);
+    const [detalhesPorId, setDetalhesPorId] = useState({});
+
+    function adicionarPokemon(pokemon) {
+        dispatch({ type: 'ADICIONAR_POKEMONS', payload: [pokemon.id] });
+        setDetalhesPorId((anteriores) => ({
+            ...anteriores,
+            [pokemon.id]: pokemon
+        }));
+    }
+
+    const cartasDaColecao = colecao.colecao
+        .map((id) => detalhesPorId[id])
+        .filter(Boolean);
 
     function renderizarTela() {
         switch (telaAtual) {
@@ -20,10 +35,10 @@ function App() {
                 );
 
             case 'sortear':
-                return <DrawPage />;
+                return <DrawPage onPokemonDrawn={adicionarPokemon} />;
 
             case 'album':
-                return <Album />;
+                return <Album cartas={cartasDaColecao} />;
 
             default:
                 return (
