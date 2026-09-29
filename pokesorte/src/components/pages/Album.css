@@ -100,6 +100,7 @@
 }
 
 .album-page__list > li {
+  position: relative;
   box-sizing: border-box;
   min-width: 0;
   padding: 28px 20px;
@@ -248,4 +249,58 @@
     grid-template-columns: 1fr;
     gap: 18px;
   }
+}
+
+
+.album-page__favorites-filter {
+  grid-row: 3;
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.album-page__filters .album-page__favorites-filter input {
+  width: 18px;
+  min-height: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  accent-color: #2d77b8;
+}
+
+.album-page__favorite-button {
+  position: absolute;
+  z-index: 2;
+  top: 9px;
+  left: 9px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #b8c9d9;
+  border-radius: 50%;
+  background: #ffffffee;
+  color: #66788a;
+  font: inherit;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #17345133;
+}
+
+.album-page__favorite-button[aria-pressed="true"] {
+  color: #d79b13;
+}
+
+.album-page__favorite-button:hover {
+  background: #fff5d8;
+}
+
+.album-page__favorite-button:focus-visible {
+  outline: 3px solid #2d77b8;
+  outline-offset: 2px;
 }
