@@ -92,14 +92,15 @@
 
 .album-page__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .album-page__list > li {
+  position: relative;
   box-sizing: border-box;
   min-width: 0;
   padding: 28px 20px;
@@ -114,7 +115,6 @@
   text-transform: capitalize;
 }
 
-/* Quando o álbum usar PokemonCard, a carta terá seu próprio contorno. */
 .album-page__list > li:has(.pokemon-card) {
   padding: 0;
   border: 0;
@@ -125,6 +125,93 @@
 .album-page__list .pokemon-card {
   box-sizing: border-box;
   width: 100%;
+  padding: 16px;
+  border-width: 6px;
+  border-radius: 18px;
+  font-size: 0.8rem;
+}
+
+.album-page__list .pokemon-card::before {
+  height: 6px;
+}
+
+.album-page__list .pokemon-id {
+  font-size: 0.7rem;
+}
+
+.album-page__list .pokemon-art {
+  min-height: 150px;
+  margin: 6px 0;
+  border-radius: 13px;
+}
+
+.album-page__list .pokemon-art img,
+.album-page__list .pokemon-card__unknown {
+  width: 150px;
+  height: 150px;
+}
+
+.album-page__list .pokemon-card__unknown {
+  font-size: 4.5rem;
+}
+
+.album-page__list .pokemon-card h2 {
+  margin: 8px 0;
+  font-size: 1.4rem;
+}
+
+.album-page__list .types {
+  gap: 6px;
+  margin-bottom: 13px;
+}
+
+.album-page__list .types span {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+}
+
+.album-page__list .facts {
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.album-page__list .facts div {
+  gap: 3px;
+  padding: 7px 4px;
+  border-radius: 9px;
+}
+
+.album-page__list .facts span {
+  font-size: 0.65rem;
+}
+
+.album-page__list .facts strong {
+  font-size: 0.7rem;
+}
+
+.album-page__list .stats {
+  gap: 7px;
+}
+
+.album-page__list .stat-heading {
+  margin-bottom: 3px;
+  font-size: 0.7rem;
+}
+
+.album-page__list .stat-track {
+  height: 7px;
+}
+
+@media (max-width: 1050px) {
+  .album-page__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .album-page__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -159,6 +246,61 @@
   }
 
   .album-page__list {
+    grid-template-columns: 1fr;
     gap: 18px;
   }
+}
+
+
+.album-page__favorites-filter {
+  grid-row: 3;
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.album-page__filters .album-page__favorites-filter input {
+  width: 18px;
+  min-height: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  accent-color: #2d77b8;
+}
+
+.album-page__favorite-button {
+  position: absolute;
+  z-index: 2;
+  top: 9px;
+  left: 9px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #b8c9d9;
+  border-radius: 50%;
+  background: #ffffffee;
+  color: #66788a;
+  font: inherit;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #17345133;
+}
+
+.album-page__favorite-button[aria-pressed="true"] {
+  color: #d79b13;
+}
+
+.album-page__favorite-button:hover {
+  background: #fff5d8;
+}
+
+.album-page__favorite-button:focus-visible {
+  outline: 3px solid #2d77b8;
+  outline-offset: 2px;
 }

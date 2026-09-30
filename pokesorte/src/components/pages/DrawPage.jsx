@@ -5,7 +5,7 @@ import PokemonCard from '../PokemonCard.jsx'
 import { getPokemonDetails } from '../../services/pokeApi.js'
 import './DrawPage.css'
 
-export default function DrawPage() {
+export default function DrawPage({ onPokemonDrawn }) {
   const [pokemons, setPokemons] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -27,6 +27,7 @@ export default function DrawPage() {
       )
 
       setPokemons(results)
+      onPokemonDrawn?.(results[0])
     } catch (err) {
       setPokemons([])
       setError(err.message)
