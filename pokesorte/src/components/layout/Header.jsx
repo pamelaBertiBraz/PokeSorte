@@ -1,5 +1,6 @@
 import './Header.css';
 import logoPokeSorte from '../../assets/logo-pokesorte.png';
+import { NavLink, useLocation } from 'react-router-dom';
 
 function Icon({ nome }) {
     if (nome === 'home') {
@@ -112,73 +113,55 @@ function Icon({ nome }) {
         );
     }
 
-    if (nome === 'favoritos') {
-        return (
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
-                <path
-                    d="M12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3.5Z"
-                    fill="currentColor"
-                />
-            </svg>
-        );
-    }
-
     return null;
 }
 
-function Header({ telaAtual, onNavigate }) {
+function Header() {
+    const location = useLocation();
+
     const opcoes = [
         {
-            id: 'home',
+            caminho: '/',
             nome: 'Início',
             icone: 'home'
         },
         {
-            id: 'album',
+            caminho: '/album',
             nome: 'Álbum',
             icone: 'album'
         },
         {
-            id: 'sortear',
+            caminho: '/sortear',
             nome: 'Sortear',
             icone: 'sortear'
-        },
-        {
-            id: 'favoritos',
-            nome: 'Favoritos',
-            icone: 'favoritos'
         }
     ];
 
     const opcoesVisiveis = opcoes.filter(
-        (opcao) => opcao.id !== telaAtual
+        (opcao) => opcao.caminho !== location.pathname
     );
 
     return (
         <header className="header">
-            <button
+            <NavLink
+                to="/"
                 className="header__logo"
-                onClick={() => onNavigate('home')}
                 aria-label="Ir para a página inicial"
             >
                 <img
                     src={logoPokeSorte}
                     alt="PokeSorte"
                 />
-            </button>
+            </NavLink>
 
             <nav
                 className="header__nav"
                 aria-label="Navegação principal"
             >
                 {opcoesVisiveis.map((opcao) => (
-                    <button
-                        key={opcao.id}
-                        type="button"
-                        onClick={() => onNavigate(opcao.id)}
+                    <NavLink
+                        key={opcao.caminho}
+                        to={opcao.caminho}
                         className="header__link"
                     >
                         <span className="header__icon">
@@ -186,7 +169,7 @@ function Header({ telaAtual, onNavigate }) {
                         </span>
 
                         <span>{opcao.nome}</span>
-                    </button>
+                    </NavLink>
                 ))}
             </nav>
         </header>
