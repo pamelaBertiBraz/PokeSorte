@@ -1,7 +1,10 @@
 import './Home.css';
 import logoPokeSorte from '../../assets/logo-pokesorte.png';
+import { useNavigate } from 'react-router-dom';
 
-function Home({ onNavigate, quantidadeNaColecao = 0 }) {
+function Home({ quantidadeNaColecao = 0 }) {
+    const navigate = useNavigate();
+
     return (
         <main className="home">
             <section className="home__content">
@@ -18,7 +21,10 @@ function Home({ onNavigate, quantidadeNaColecao = 0 }) {
                     Sorteie cartas, descubra novos Pokémon e complete seu álbum!
                 </p>
 
-                <section className="home__cards" aria-label="Informações do jogo">
+                <section
+                    className="home__cards"
+                    aria-label="Informações do jogo"
+                >
 
                     <article className="home__card">
                         <strong>151</strong>
@@ -41,14 +47,14 @@ function Home({ onNavigate, quantidadeNaColecao = 0 }) {
 
                     <button
                         type="button"
-                        onClick={() => onNavigate?.('sortear')}
+                        onClick={() => navigate('/sortear')}
                     >
                         Sortear
                     </button>
 
                     <button
                         type="button"
-                        onClick={() => onNavigate?.('album')}
+                        onClick={() => navigate('/album')}
                     >
                         Álbum
                     </button>
