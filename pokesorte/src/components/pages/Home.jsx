@@ -1,6 +1,7 @@
 import './Home.css';
 import logoPokeSorte from '../../assets/logo-pokesorte.png';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 function Home({ quantidadeNaColecao = 0 }) {
     const navigate = useNavigate();
@@ -45,20 +46,19 @@ function Home({ quantidadeNaColecao = 0 }) {
 
                 <div className="home__actions">
 
-                    <button
-                        type="button"
+                    <Button
+                        variant="contained"
                         onClick={() => navigate('/sortear')}
                     >
                         Sortear
-                    </button>
+                    </Button>
 
-                    <button
-                        type="button"
+                    <Button
+                        variant="contained"
                         onClick={() => navigate('/album')}
                     >
                         Álbum
-                    </button>
-
+                    </Button>
                 </div>
 
             </section>
