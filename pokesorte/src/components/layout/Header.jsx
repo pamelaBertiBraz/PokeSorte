@@ -1,6 +1,5 @@
 import './Header.css';
 import logoPokeSorte from '../../assets/logo-pokesorte.png';
-import { NavLink, useLocation } from 'react-router-dom';
 
 function Icon({ nome }) {
     if (nome === 'home') {
@@ -130,57 +129,56 @@ function Icon({ nome }) {
     return null;
 }
 
-function Header() {
-    const location = useLocation();
-
+function Header({ telaAtual, onNavigate }) {
     const opcoes = [
         {
-            caminho: '/',
+            id: 'home',
             nome: 'Início',
             icone: 'home'
         },
         {
-            caminho: '/album',
+            id: 'album',
             nome: 'Álbum',
             icone: 'album'
         },
         {
-            caminho: '/sortear',
+            id: 'sortear',
             nome: 'Sortear',
             icone: 'sortear'
         },
         {
-            caminho: '/favoritos',
+            id: 'favoritos',
             nome: 'Favoritos',
             icone: 'favoritos'
         }
     ];
 
     const opcoesVisiveis = opcoes.filter(
-        (opcao) => opcao.caminho !== location.pathname
+        (opcao) => opcao.id !== telaAtual
     );
 
     return (
         <header className="header">
-            <NavLink
-                to="/"
+            <button
                 className="header__logo"
+                onClick={() => onNavigate('home')}
                 aria-label="Ir para a página inicial"
             >
                 <img
                     src={logoPokeSorte}
                     alt="PokeSorte"
                 />
-            </NavLink>
+            </button>
 
             <nav
                 className="header__nav"
                 aria-label="Navegação principal"
             >
                 {opcoesVisiveis.map((opcao) => (
-                    <NavLink
-                        key={opcao.caminho}
-                        to={opcao.caminho}
+                    <button
+                        key={opcao.id}
+                        type="button"
+                        onClick={() => onNavigate(opcao.id)}
                         className="header__link"
                     >
                         <span className="header__icon">
@@ -188,7 +186,7 @@ function Header() {
                         </span>
 
                         <span>{opcao.nome}</span>
-                    </NavLink>
+                    </button>
                 ))}
             </nav>
         </header>
