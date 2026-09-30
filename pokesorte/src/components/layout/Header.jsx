@@ -1,5 +1,6 @@
 import './Header.css';
 import logoPokeSorte from '../../assets/logo-pokesorte.png';
+import { NavLink, useLocation } from 'react-router-dom';
 
 function Icon({ nome }) {
     if (nome === 'home') {
@@ -129,56 +130,57 @@ function Icon({ nome }) {
     return null;
 }
 
-function Header({ telaAtual, onNavigate }) {
+function Header() {
+    const location = useLocation();
+
     const opcoes = [
         {
-            id: 'home',
+            caminho: '/',
             nome: 'Início',
             icone: 'home'
         },
         {
-            id: 'album',
+            caminho: '/album',
             nome: 'Álbum',
             icone: 'album'
         },
         {
-            id: 'sortear',
+            caminho: '/sortear',
             nome: 'Sortear',
             icone: 'sortear'
         },
         {
-            id: 'favoritos',
+            caminho: '/favoritos',
             nome: 'Favoritos',
             icone: 'favoritos'
         }
     ];
 
     const opcoesVisiveis = opcoes.filter(
-        (opcao) => opcao.id !== telaAtual
+        (opcao) => opcao.caminho !== location.pathname
     );
 
     return (
         <header className="header">
-            <button
+            <NavLink
+                to="/"
                 className="header__logo"
-                onClick={() => onNavigate('home')}
                 aria-label="Ir para a página inicial"
             >
                 <img
                     src={logoPokeSorte}
                     alt="PokeSorte"
                 />
-            </button>
+            </NavLink>
 
             <nav
                 className="header__nav"
                 aria-label="Navegação principal"
             >
                 {opcoesVisiveis.map((opcao) => (
-                    <button
-                        key={opcao.id}
-                        type="button"
-                        onClick={() => onNavigate(opcao.id)}
+                    <NavLink
+                        key={opcao.caminho}
+                        to={opcao.caminho}
                         className="header__link"
                     >
                         <span className="header__icon">
@@ -186,7 +188,7 @@ function Header({ telaAtual, onNavigate }) {
                         </span>
 
                         <span>{opcao.nome}</span>
-                    </button>
+                    </NavLink>
                 ))}
             </nav>
         </header>
