@@ -1,4 +1,6 @@
 import './Album.css'
+import StarRoundedIcon from '@mui/icons-material/StarRounded'
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded'
 import { useEffect, useMemo, useState } from 'react'
 import PokemonCard from '../PokemonCard.jsx'
 import { getPokemon } from '../../services/pokeApi.js'
@@ -156,7 +158,17 @@ export default function Album({ cartas = CARTAS_VAZIAS }) {
                     aria-pressed={favoritosSet.has(carta.id)}
                     onClick={() => alternarFavorito(carta.id)}
                   >
-                    <span aria-hidden="true">{favoritosSet.has(carta.id) ? '★' : '☆'}</span>
+                    {favoritosSet.has(carta.id) ? (
+                      <StarRoundedIcon
+                        className="album-page__favorite-icon"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <StarBorderRoundedIcon
+                        className="album-page__favorite-icon"
+                        aria-hidden="true"
+                      />
+                    )}
                   </button>
                 )}
               </li>
