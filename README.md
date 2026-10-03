@@ -110,13 +110,6 @@ npm run dev
 
 Abra no navegador o endereço informado pelo terminal, normalmente `http://localhost:5173`. Caso a porta esteja ocupada, utilize o endereço alternativo exibido pelo Vite.
 
-Outros comandos disponíveis:
-
-| Comando | Finalidade |
-|---|---|
-| `npm run lint` | Analisa o código com Oxlint. |
-| `npm run build` | Gera a versão de produção na pasta `dist/`. |
-| `npm run preview` | Disponibiliza uma prévia local da versão de produção, após executar o build. |
 
 ## 👥 Organização da equipe
 
